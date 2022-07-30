@@ -2,7 +2,8 @@
 import logo from './logo.svg';
 import './home.css';
 import TodoList from './components/todoList';
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 function Home() {
   return (
     <div dir='rtl'>
@@ -12,7 +13,8 @@ function Home() {
         </div>
         <div className='p-1 pl-3'></div>
       </div>
-     <TodoList/>
+      <TodoList />
+      <ToastContainer />
     </div>
   );
 }

@@ -15,6 +15,10 @@ code {
     monospace;
 }
 
+.vazir-matn-font {
+  font-family: Vazirmatn
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
