@@ -1,18 +1,19 @@
 
 import React, { useState, Dispatch, SetStateAction } from "react";
 import { toast } from "react-toastify";
-import Loading from "../loading/loading";
+import Loading from "../loading";
 import Todo from "../models/todo";
 
 interface Props {
-    add: Dispatch<SetStateAction<Todo[]>>,
+    add: (data: Todo) => void,
 }
 
 const AddTodo: React.FC<Props> = ({ add }) => {
 
     const [input, setInput] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
-    const inputHandler: React.ChangeEventHandler = (event: any) => { setInput(event.target.value) }
+    const inputHandler: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>) => { setInput(event.target.value) };
+
     const submitHandler: React.FormEventHandler = async (event: React.FormEvent) => {
         event.preventDefault();
         if (input.length > 0) {
@@ -25,7 +26,7 @@ const AddTodo: React.FC<Props> = ({ add }) => {
                 });
                 const data = await res.json();
 
-                add((prevState: Todo[]) : Todo[] => ([...prevState, data.data]));
+                add(data.data);
                 toast(<div className='vazir-matn-font'>مورد نظر اضافه شد todo</div>)
 
             } catch (error) { console.log(error) }

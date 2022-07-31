@@ -11,7 +11,6 @@ const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const getUsers = async () => {
-
     try {
       // Fetch data from external API
       const res = await fetch(`https://629ef5bce67470ca4dec9bcb.endapi.io/todos`)
@@ -22,8 +21,16 @@ const TodoList: React.FC = () => {
 
   }
 
-  useEffect(() => { getUsers() }, [])
+  useEffect(() => { getUsers() }, []);
 
+  const remove = (id: number): void => {
+    setTodos((prevState: Todo[]): Todo[] => (prevState.filter((todo: Todo) => (todo.id !== id))));
+  }
+  const add = (data: Todo): void => { setTodos((prevState: Todo[]): Todo[] => ([...prevState, data])) };
+
+  const edit = (data: Todo, id: number): void => {
+    setTodos((prevState: Todo[]): Todo[] => (prevState.map(todo => (todo.id === id ? data : todo))));
+  }
 
   return (
     <div className="w-full flex items-center justify-center  " dir='ltr'>
@@ -31,10 +38,10 @@ const TodoList: React.FC = () => {
       <div className="bg-slate-50 rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
         <div className="mb-4">
           <h1 className="text-gray-700">Todo List</h1>
-          <AddTodo add={setTodos} />
+          <AddTodo add={add} />
         </div>
         <div className='max-h-[300px] overflow-auto'>
-          {todos.map(item => (<Row key={item.id} item={item} />))}
+          {todos.map(item => (<Row key={item.id} item={item} remove={remove} edit={edit} />))}
         </div>
       </div>
     </div>
