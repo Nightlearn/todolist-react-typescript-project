@@ -48,8 +48,8 @@ const Row: React.FC<Props> = ({ item, remove, edit, seteditItem }) => {
     }
 
     return (
-        <>
-            <div>
+        <div className="flex mb-4 items-center justify-between p-2">
+            <div onClick={editDoneHandler.bind(null, item.id, item.done)} className="cursor-pointer">
                 <p className={`w-full text-ellipsis whitespace-nowrap overflow-hidden max-w-[130px] ${item.done ? "line-through text-green-700" : "text-gray-700"}`}>{item.text}</p>
             </div>
             <div className="flex">
@@ -76,7 +76,7 @@ const Row: React.FC<Props> = ({ item, remove, edit, seteditItem }) => {
 
                 </button>
             </div>
-        </>
+        </div>
     )
 }
 
