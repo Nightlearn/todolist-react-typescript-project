@@ -3,26 +3,26 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "react-toastify";
 import Loading from "../../loading";
 import Todo from "../../models/todo";
-
+import {  editTodo, removeTodo } from "../../../store/todoSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store";
 interface Props {
     item: Todo,
-    remove: (id: number) => void,
-    edit: (data: Todo, id: number) => void,
     seteditItem: Dispatch<SetStateAction<boolean>>,
 }
 
-const Row: React.FC<Props> = ({ item, remove, edit, seteditItem }) => {
+const Row: React.FC<Props> = ({ item, seteditItem }) => {
 
     const [loadingRemove, setLoadingRemove] = useState<boolean>(false);
     const [loadingDone, setLoadingDone] = useState<boolean>(false);
-
+    const dispatch = useDispatch<AppDispatch>();
     const deleteHaqndler = async (id: number) => {
         setLoadingRemove(true)
         try {
             let res = await fetch(`https://629ef5bce67470ca4dec9bcb.endapi.io/todos/${id}`, {
                 method: "DELETE", headers: { 'Content-Type': 'application/json', 'charset': 'utf-8 ' }
             });
-            remove(id);
+            dispatch(removeTodo(id));
             toast(<div className='vazir-matn-font'>حذف انجام شد</div>);
         } catch (error) { console.log(error) }
         setLoadingRemove(false);
@@ -37,7 +37,7 @@ const Row: React.FC<Props> = ({ item, remove, edit, seteditItem }) => {
                 headers: { 'Content-Type': 'application/json', 'charset': 'utf-8 ' }
             });
             const todo = await res.json();
-            edit(todo.data, id);
+            dispatch(editTodo(todo.data));
 
         } catch (error) { console.log(error) }
         setLoadingDone(false);

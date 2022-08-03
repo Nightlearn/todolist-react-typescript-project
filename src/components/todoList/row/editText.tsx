@@ -2,19 +2,22 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import Loading from "../../loading";
 import Todo from "../../models/todo";
-
+import {  editTodo } from "../../../store/todoSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store";
 interface Props {
     item: Todo,
     seteditItem: Dispatch<SetStateAction<boolean>>,
-    edit: (data: Todo, id: number) => void,
+
 }
 
-const Row: React.FC<Props> = ({ seteditItem, item, edit }) => {
+const Row: React.FC<Props> = ({ seteditItem, item }) => {
 
     const [input, setInput] = useState<string>(item.text);
     const [loading, setLoading] = useState<boolean>(false);
     const inputHandler: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>) => { setInput(event.target.value) };
-    
+    const dispatch = useDispatch<AppDispatch>();
+   
     const editTextHandler: React.FormEventHandler  = async (event : React.FormEvent) => {
         event.preventDefault();
         setLoading(true);
@@ -25,7 +28,7 @@ const Row: React.FC<Props> = ({ seteditItem, item, edit }) => {
                 headers: { 'Content-Type': 'application/json', 'charset': 'utf-8 ' }
             });
             const todo = await res.json();
-            edit(todo.data, item.id);
+            dispatch(editTodo(todo.data));
             seteditItem(false);
 
         } catch (error) { console.log(error) }
