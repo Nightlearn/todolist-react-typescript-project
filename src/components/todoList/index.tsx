@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import Filter from "./filter";
 import { useDispatch, useSelector } from "react-redux";
 import { setTodos } from "../../store/todoSlice";
+
 const TodoList: React.FC = () => {
 
   const todos = useSelector((state: RootState) => state.todo);
@@ -40,7 +41,7 @@ const TodoList: React.FC = () => {
     <div>
       <Filter setSelectedIndex={setSelectedIndex} setSearch={setSearch} />
       <div className="w-full flex items-center justify-center" dir='ltr'>
-        <div className="bg-slate-50 rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
+        <div className="bg-slate-100 rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
           <div className="mb-4">
             <h1 className="text-gray-700">Todo List</h1>
             <AddTodo />
