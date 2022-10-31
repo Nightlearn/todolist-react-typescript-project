@@ -41,12 +41,12 @@ const TodoList: React.FC = () => {
     <div>
       <Filter setSelectedIndex={setSelectedIndex} setSearch={setSearch} />
       <div className="w-full flex items-center justify-center" dir='ltr'>
-        <div className="bg-slate-100 rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
+        <div className="bg-slate-100 rounded shadow p-6 mt-4 w-full lg:w-3/4 lg:max-w-lg">
           <div className="mb-4">
             <h1 className="text-gray-700">Todo List</h1>
             <AddTodo />
           </div>
-          <div className='max-h-[300px] overflow-auto shadow-inner'>
+          <div className='max-h-[350px] overflow-auto shadow-inner'>
             {filter(SelectedIndex, search).map(item => (<Row key={item.id} item={item} />))}
           </div>
         </div>
