@@ -45,7 +45,7 @@ const TodoList: React.FC = () => {
             <h1 className="text-gray-700">Todo List</h1>
             <AddTodo />
           </div>
-          <div className='max-h-[300px] overflow-auto'>
+          <div className='max-h-[300px] overflow-auto shadow-inner'>
             {filter(SelectedIndex, search).map(item => (<Row key={item.id} item={item} />))}
           </div>
         </div>
